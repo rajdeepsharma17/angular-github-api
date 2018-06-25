@@ -13,7 +13,6 @@ export class AppComponent {
   repo = 'Hello-World'
   private apiUrl = ''
   data: any = {}
-  forksCount = []
   collection = []
   spinner = false
   downloadlink = ''
@@ -52,7 +51,6 @@ export class AppComponent {
       setTimeout(()=> {
         this.spinner = false
         this.collection.push(this.data)
-        this.forksCount.push(this.data.forks_count)
       },1300)
       this.downloadlink = this.data.html_url + "/archive/master.zip"
     },
@@ -67,7 +65,17 @@ export class AppComponent {
 
   sortForkCount(e){
     e.preventDefault()
-    this.forksCount.sort().reverse()
+    let i, j, temp;
+    for(i = 0; i < this.collection.length; i++){
+      for(j = 0; j < this.collection.length - i; j++){
+        if(this.collection[i].forks_count < this.collection[i+1].forks_count){
+          temp = this.collection[i]
+          this.collection[i] = this.collection[i+1]
+          this.collection[i+1] = temp
+        }
+      }
+    }
+    
   }
 
 
