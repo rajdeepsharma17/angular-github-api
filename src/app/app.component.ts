@@ -9,10 +9,11 @@ import { map } from 'rxjs/operators'
 })
 export class AppComponent {
   title = 'app';
-  user = ''
-  repo = ''
+  user = 'rajdeepsharma17'
+  repo = 'SIH_Kerela'
   private apiUrl = ''
   data: any = {}
+  forksCount = []
 
   @ViewChild('userText') userText;
   @ViewChild('repoText') repoText;
@@ -40,6 +41,12 @@ export class AppComponent {
     this.getData().subscribe(data => {
       console.log(data)
       this.data = data
+      this.forksCount.push(this.data.forks_count)
     })
   }
+
+  sortForkCount(){
+    this.forksCount.sort().reverse()
+  }
+
 }

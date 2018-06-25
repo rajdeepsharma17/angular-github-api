@@ -4,5 +4,9 @@
   <input #userText type="text" value="{{user}}">
   <input #repoText type="text" value="{{repo}}">
   <button (click)="fetchDetail()">Fetch</button>
-  {{data.id}}
+  <button (click)="sortForkCount()">Sort</button>
+  <div *ngFor="let item of forksCount" >
+      {{ item }}
+  </div>
+ 
 </div>
