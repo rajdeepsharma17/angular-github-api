@@ -1,4 +1,8 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   Hello
+  <input #userText type="text" value="{{user}}">
+  <input #repoText type="text" value="{{repo}}">
+  <button (click)="fetchDetail()">Fetch</button>
+  {{data.id}}
 </div>
