@@ -9,12 +9,14 @@ import { map } from 'rxjs/operators'
 })
 export class AppComponent {
   title = 'app';
-  user = 'rajdeepsharma17'
-  repo = 'SIH_Kerela'
+  user = 'octocat'
+  repo = 'Hello-World'
   private apiUrl = ''
   data: any = {}
   forksCount = []
+  collection = []
   spinner = false
+  downloadlink = ''
 
   @ViewChild('userText') userText;
   @ViewChild('repoText') repoText;
@@ -24,7 +26,8 @@ export class AppComponent {
     
   }
 
-  fetchDetail(){
+  fetchDetail(e){
+    e.preventDefault()
     this.spinner = true
     this.user = this.userText.nativeElement.value;
     this.repo = this.repoText.nativeElement.value;
@@ -45,14 +48,21 @@ export class AppComponent {
       this.data = data
       setTimeout(()=> {
         this.spinner = false
+        this.collection.push(this.data)
         this.forksCount.push(this.data.forks_count)
       },1300)
-      
+      this.downloadlink = this.data.html_url + "/archive/master.zip"
     })
+
   }
 
-  sortForkCount(){
+  sortForkCount(e){
+    e.preventDefault()
     this.forksCount.sort().reverse()
+  }
+
+  download(){
+
   }
 
 }

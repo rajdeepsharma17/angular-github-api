@@ -1,147 +1,69 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <label for="validInput1" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation invalid tooltip-sm">
-      <input #userText type="text" value="{{user}}" id="validInput1">
-      <span class="tooltip-content">
-          This field cannot be empty!
-      </span>
-  </label>
-  <label for="validInput2" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation invalid tooltip-md">
-      <input #repoText type="text" value="{{repo}}" id="validInput2">
-      <span class="tooltip-content">
-          This field cannot be empty!
-      </span>
-  </label>
 
-  <button class="btn btn-primary clr-col-3" (click)="fetchDetail()">Fetch</button>
-  <button class="btn btn-success clr-col-3" (click)="sortForkCount()">
-    Sort
-  </button>
-  <div *ngFor="let item of forksCount" >
+<div>
+    <div class="login-wrapper">
+        <form class="login">
+            <section class="title">
+                <h3 class="welcome">Welcome to</h3>
+                Github Api
+                <h5 class="hint">Provide username and repository details.</h5>
+            </section>
+            <div class="login-group">
+                
+                <input class="username" #userText type="text" value="{{user}}" id="login_username" placeholder="Username">
+                <input class="username" #repoText type="text" value="{{repo}}" id="login_username" placeholder="Repo Name">
+                <div class="error active">
+                    Invalid user name or repo
+                </div>
+                <button (click)="fetchDetail($event)" class="btn btn-primary">Fetch Details</button>
+                <button (click)="sortForkCount($event)" class="btn btn-primary">Sort</button>
+                <a href="https://github.com/rajdeepsharma17/angular-github-api" class="signup">Fork the repository</a>
+            </div>
+        </form>
+        <div style="margin: 20px" class="row">
+            <div style="margin: 30px" *ngFor="let item of collection">
+                <div class="card">
+                    <div class="card-header">
+                        {{ item.name }}
+                    </div>
+                    <div class="card-block">
+                         <a href="{{ item.html_url }}">{{ item.html_url }}</a> 
+                    </div>
+                    <div class="card-block">
+                        <ul class="list">
+                            <li>
+                                Owner
+                                <ul class="list">
+                                    <li> Username: {{ item.owner.login }}</li>
+                                    <li>Url: {{ item.owner.html_url }}</li>
+                                    <li>ID: {{ item.owner.id }} </li>
+                                </ul>
+                            </li>
+                            <li>Watch: {{ item.subscribers_count }} </li>
+                            <li>Star: {{ item.stargazers_count }} </li>
+                            <li>Forks: {{ item.forks }} </li>
+                            <li>Updated At: {{ item.updated_at }}</li>
+                            <li>Created At: {{ item.created_at }} </li>
+                            <li>Pushed At:  {{ item.pushed_at }} </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ downloadlink }}" (click)="download" class="btn btn-primary">Download Repository</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+
+
+
+
+<div style="text-align:center">
+  <div *ngFor="let item of collection" >
       {{ item }}
   </div>
 
-  <div *ngIf="spinner" >
-      <span class="spinner spinner-lg">
-          Loading...
-      </span>
-  </div>
+  
 
-
-  <div class="row">
-      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-          <div class="card">
-              <div class="card-header">
-                  Unordered Lists
-              </div>
-              <div class="card-block">
-                  ...
-              </div>
-              <div class="card-block">
-                  <ul class="list">
-                      <li>Ullamco Laboris</li>
-                      <li>
-                          Nisi Ut Aliquip
-                          <ul class="list">
-                              <li>Exercitation</li>
-                              <li>Laboris</li>
-                              <li>Commodo</li>
-                          </ul>
-                      </li>
-                      <li>Consequat</li>
-                      <li>Excepteur sint occaecat cupidatat non proident</li>
-                      <li>Enim ad Minim</li>
-                      <li>
-                          Occeaecat
-                          <ul class="list-unstyled">
-                              <li>Exercitation</li>
-                              <li>Laboris</li>
-                              <li>Commodo</li>
-                          </ul>
-                      </li>
-                  </ul>
-              </div>
-              <div class="card-footer">
-                  <a class="btn btn-primary">Action</a>
-              </div>
-          </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-          <div class="card">
-              <div class="card-header">
-                  Ordered Lists
-              </div>
-              <div class="card-block">
-                  ...
-              </div>
-              <div class="card-block">
-                  <ol class="list">
-                      <li>Ullamco Laboris</li>
-                      <li>
-                          Nisi Ut Aliquip
-                          <ol class="list">
-                              <li>Exercitation</li>
-                              <li>Laboris</li>
-                              <li>Commodo</li>
-                          </ol>
-                      </li>
-                      <li>Consequat</li>
-                      <li>Excepteur sint occaecat cupidatat non proident</li>
-                      <li>Enim ad Minim</li>
-                      <li>
-                          Occeaecat
-                          <ol class="list-unstyled">
-                              <li>Exercitation</li>
-                              <li>Laboris</li>
-                              <li>Commodo</li>
-                          </ol>
-                      </li>
-                  </ol>
-              </div>
-              <div class="card-footer">
-                  <a class="btn btn-primary">Action</a>
-              </div>
-          </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-          <div class="card">
-              <div class="card-header">
-                  Unstyled Lists
-              </div>
-              <div class="card-block">
-                  <p class="card-text">
-                      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </p>
-              </div>
-              <div class="card-block">
-                  <ul class="list-unstyled">
-                      <li>Ullamco Laboris</li>
-                      <li>
-                          Nisi Ut Aliquip
-                          <ul class="list">
-                              <li>Exercitation</li>
-                              <li>Laboris</li>
-                              <li>Commodo</li>
-                          </ul>
-                      </li>
-                      <li>Consequat</li>
-                      <li>Excepteur sint occaecat cupidatat non proident</li>
-                      <li>Enim ad Minim</li>
-                      <li>
-                          Occeaecat
-                          <ul class="list-unstyled">
-                              <li>Exercitation</li>
-                              <li>Laboris</li>
-                              <li>Commodo</li>
-                          </ul>
-                      </li>
-                  </ul>
-              </div>
-              <div class="card-footer">
-                  <a class="btn btn-primary">Action</a>
-              </div>
-          </div>
-      </div>
-  </div>
- 
-</div>
