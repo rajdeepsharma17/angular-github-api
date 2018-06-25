@@ -14,6 +14,7 @@ export class AppComponent {
   private apiUrl = ''
   data: any = {}
   forksCount = []
+  spinner = false
 
   @ViewChild('userText') userText;
   @ViewChild('repoText') repoText;
@@ -24,6 +25,7 @@ export class AppComponent {
   }
 
   fetchDetail(){
+    this.spinner = true
     this.user = this.userText.nativeElement.value;
     this.repo = this.repoText.nativeElement.value;
     this.apiUrl = 'https://api.github.com/repos/' + this.user + '/' + this.repo
@@ -41,7 +43,11 @@ export class AppComponent {
     this.getData().subscribe(data => {
       console.log(data)
       this.data = data
-      this.forksCount.push(this.data.forks_count)
+      setTimeout(()=> {
+        this.spinner = false
+        this.forksCount.push(this.data.forks_count)
+      },1300)
+      
     })
   }
 
