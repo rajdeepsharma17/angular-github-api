@@ -6,17 +6,21 @@
             <section class="title">
                 <h3 class="welcome">Welcome to</h3>
                 Github Api
+                <span *ngIf="spinner"  class="spinner spinner-md">
+                    Loading...
+                </span>
                 <h5 class="hint">Provide username and repository details.</h5>
             </section>
             <div class="login-group">
                 
                 <input class="username" #userText type="text" value="{{user}}" id="login_username" placeholder="Username">
                 <input class="username" #repoText type="text" value="{{repo}}" id="login_username" placeholder="Repo Name">
-                <div class="error active">
+                <div *ngIf="err"  class="error active">
                     Invalid user name or repo
                 </div>
                 <button (click)="fetchDetail($event)" class="btn btn-primary">Fetch Details</button>
                 <button (click)="sortForkCount($event)" class="btn btn-primary">Sort</button>
+                
                 <a href="https://github.com/rajdeepsharma17/angular-github-api" class="signup">Fork the repository</a>
             </div>
         </form>
@@ -48,7 +52,7 @@
                         </ul>
                     </div>
                     <div class="card-footer">
-                        <a href="{{ downloadlink }}" (click)="download" class="btn btn-primary">Download Repository</a>
+                        <a href="{{ downloadlink }}" class="btn btn-primary">Download Repository</a>
                     </div>
                 </div>
             </div>
@@ -56,14 +60,6 @@
     </div>
 </div> 
 
-
-
-
-
-<div style="text-align:center">
-  <div *ngFor="let item of collection" >
-      {{ item }}
-  </div>
 
   
 

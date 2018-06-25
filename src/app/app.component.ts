@@ -17,6 +17,8 @@ export class AppComponent {
   collection = []
   spinner = false
   downloadlink = ''
+  error: any = {}
+  err = false
 
   @ViewChild('userText') userText;
   @ViewChild('repoText') repoText;
@@ -28,6 +30,7 @@ export class AppComponent {
 
   fetchDetail(e){
     e.preventDefault()
+    this.err = false
     this.spinner = true
     this.user = this.userText.nativeElement.value;
     this.repo = this.repoText.nativeElement.value;
@@ -52,8 +55,14 @@ export class AppComponent {
         this.forksCount.push(this.data.forks_count)
       },1300)
       this.downloadlink = this.data.html_url + "/archive/master.zip"
-    })
-
+    },
+    error => {
+      this.error = error
+      console.log(this.error)
+      this.err = true
+    }
+  )
+  
   }
 
   sortForkCount(e){
@@ -61,8 +70,5 @@ export class AppComponent {
     this.forksCount.sort().reverse()
   }
 
-  download(){
-
-  }
 
 }
