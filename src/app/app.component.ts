@@ -18,6 +18,7 @@ export class AppComponent {
   downloadlink = ''
   error: any = {}
   err = false
+  alert = false
 
   @ViewChild('userText') userText;
   @ViewChild('repoText') repoText;
@@ -51,7 +52,7 @@ export class AppComponent {
       setTimeout(()=> {
         this.spinner = false
         this.collection.push(this.data)
-      },1300)
+      },1100)
       this.downloadlink = this.data.html_url + "/archive/master.zip"
     },
     error => {
@@ -76,6 +77,12 @@ export class AppComponent {
           this.collection[j - 1] = temp
         }
       }
+    }
+    if(this.collection.length != 0){
+      this.alert = true
+      setTimeout(()=> {
+        this.alert = false
+      },2500)
     }
     
   }

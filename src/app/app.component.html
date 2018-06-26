@@ -22,6 +22,16 @@
                 <button (click)="sortForkCount($event)" class="btn btn-primary">Sort</button>
                 
                 <a href="https://github.com/rajdeepsharma17/angular-github-api" class="signup">Fork the repository</a>
+                <div *ngIf="alert"  style="margin-top: 40px" class="alert alert-success">
+                    <div class="alert-items">
+                        <div class="alert-item static">
+                            <div class="alert-icon-wrapper">
+                                <clr-icon class="alert-icon" shape="check-circle"></clr-icon>
+                            </div>
+                            <span style="text-align: center" class="alert-text">Sorted with respect to Forks Count</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
         <div style="margin: 20px" class="row">
