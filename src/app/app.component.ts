@@ -65,13 +65,15 @@ export class AppComponent {
 
   sortForkCount(e){
     e.preventDefault()
+    // let  = 0
+    // console.log(this.collection[j + 1])
     let i, j, temp;
     for(i = 0; i < this.collection.length; i++){
-      for(j = 0; j < this.collection.length - i; j++){
-        if(this.collection[i].forks_count < this.collection[i+1].forks_count){
-          temp = this.collection[i]
-          this.collection[i] = this.collection[i+1]
-          this.collection[i+1] = temp
+      for(j = 1; j < this.collection.length - i; j++){
+        if(this.collection[j  - 1].forks_count > this.collection[j].forks_count){
+          temp = this.collection[j]
+          this.collection[j] = this.collection[j - 1]
+          this.collection[j - 1] = temp
         }
       }
     }
