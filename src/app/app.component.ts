@@ -9,8 +9,8 @@ import { map } from 'rxjs/operators'
 })
 export class AppComponent {
   title = 'app';
-  user = 'octocat'
-  repo = 'Hello-World'
+  user = ''
+  repo = ''
   private apiUrl = ''
   data: any = {}
   collection = []
