@@ -19,6 +19,19 @@ export class AppComponent {
   error: any = {}
   err = false
   alert = false
+  selectedOption: string;
+  fetchInFlight: boolean
+
+
+
+  options = [
+    { name: "Forks Count", value: 'forks_count' },
+    { name: "Watch", value: 'subscribers_count' },
+    { name: "Stars", value: 'stargazers_count' }
+    ]
+  // print() {
+  //   console.log(this.selectedOption)
+  // }
 
   @ViewChild('userText') userText;
   @ViewChild('repoText') repoText;
@@ -27,7 +40,7 @@ export class AppComponent {
   constructor(private http:Http){
     
   }
-
+  
   fetchDetail(e){
     e.preventDefault()
     this.err = false
@@ -35,14 +48,17 @@ export class AppComponent {
     this.user = this.userText.nativeElement.value;
     this.repo = this.repoText.nativeElement.value;
     this.apiUrl = 'https://api.github.com/repos/' + this.user + '/' + this.repo
-    this.getContacts()
-    this.getData()
+    if(!this.fetchInFlight){
+      this.getContacts()
+      this.fetchInFlight = true
+    }
   }
 
   getData(){
     return this.http.get(this.apiUrl).pipe(
       map((res: Response) => res.json())
     )
+    // this.fetchInFlight = false
   }
 
   getContacts(){
@@ -52,8 +68,10 @@ export class AppComponent {
       setTimeout(()=> {
         this.spinner = false
         this.collection.push(this.data)
+        
       },1100)
       this.downloadlink = this.data.html_url + "/archive/master.zip"
+      
     },
     error => {
       this.error = error
@@ -64,20 +82,23 @@ export class AppComponent {
   
   }
 
-  sortForkCount(e){
+  sortCount(e){
     e.preventDefault()
     // let  = 0
     // console.log(this.collection[j + 1])
-    let i, j, temp;
-    for(i = 0; i < this.collection.length; i++){
-      for(j = 1; j < this.collection.length - i; j++){
-        if(this.collection[j  - 1].forks_count > this.collection[j].forks_count){
-          temp = this.collection[j]
-          this.collection[j] = this.collection[j - 1]
-          this.collection[j - 1] = temp
-        }
-      }
+    var sortmethod = this.selectedOption
+    if(sortmethod == 'forks_count'){
+      this.mainSort('forks_count')
     }
+
+    if(sortmethod == 'subscribers_count'){
+      this.mainSort('subscribers_count')
+    }
+
+    if(sortmethod == 'stargazers_count'){
+      this.mainSort('stargazers_count')
+    }
+    
     if(this.collection.length != 0){
       this.alert = true
       setTimeout(()=> {
@@ -86,6 +107,15 @@ export class AppComponent {
     }
     
   }
+
+  mainSort = function(prop){
+    this.collection.sort((obj1, obj2)=>{
+      return obj1[prop] < obj2[prop]
+    })
+  }
+
+  
+
 
 
 }

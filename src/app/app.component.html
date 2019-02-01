@@ -18,8 +18,14 @@
                 <div *ngIf="err"  class="error active">
                     Invalid user name or repo
                 </div>
+                <select [(ngModel)]="selectedOption" name="first">
+                    <option *ngFor="let o of options">
+                       {{o.value}}
+                    </option>
+                 </select>
+                 <!-- <button (click)="print()" class="btn btn-primary">Slect</button> -->
                 <button (click)="fetchDetail($event)" class="btn btn-primary">Fetch Details</button>
-                <button (click)="sortForkCount($event)" class="btn btn-primary">Sort</button>
+                <button (click)="sortCount($event)" class="btn btn-primary">Sort</button>
                 
                 <a href="https://github.com/rajdeepsharma17/angular-github-api" class="signup">Fork the repository</a>
                 <div *ngIf="alert"  style="margin-top: 40px" class="alert alert-success">
